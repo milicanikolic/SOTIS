@@ -1,0 +1,2140 @@
+[{
+	"fileName": "Authority",
+	"content": "@Entity public class Authority {",
+	"sectionType": "MODEL",
+	"lineNumStart": 13,
+	"colNumStart": 0,
+	"lineNumEnd": 14,
+	"colNumEnd": 24,
+	"comment": "Entity;Authority;annotation "
+},
+{
+	"fileName": "Authority",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 15,
+	"colNumStart": 1,
+	"lineNumEnd": 17,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "Authority",
+	"content": "@OneToMany(mappedBy = \"authority\", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)  private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 21,
+	"colNumStart": 1,
+	"lineNumEnd": 22,
+	"colNumEnd": 75,
+	"comment": "OneToMany;Authority-UserAuthority;annotation"
+},
+{
+	"fileName": "Course",
+	"content": "@Entity public class Course {",
+	"sectionType": "MODEL",
+	"lineNumStart": 17,
+	"colNumStart": 0,
+	"lineNumEnd": 18,
+	"colNumEnd": 21,
+	"comment": "Entity;Course;annotation"
+},
+{
+	"fileName": "Course",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 19,
+	"colNumStart": 1,
+	"lineNumEnd": 21,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "Course",
+	"content": "@OneToMany(mappedBy = \"course\", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)  private Set<Enrollment> enrollments = new HashSet<Enrollment>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 25,
+	"colNumStart": 1,
+	"lineNumEnd": 26,
+	"colNumEnd": 65,
+	"comment": "OneToMany;Course-Enrollment;annotation"
+},
+{
+	"fileName": "Course",
+	"content": "@OneToMany(mappedBy = \"course\", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)  private Set<Exam> exams = new HashSet<Exam>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 28,
+	"colNumStart": 1,
+	"lineNumEnd": 29,
+	"colNumEnd": 47,
+	"comment": "OneToMany;Course-Exam;annotation"
+},
+{
+	"fileName": "Course",
+	"content": "@ManyToMany     @JoinTable(name = \"teaching\",                joinColumns = @JoinColumn(name=\"course_id\", referencedColumnName=\"id\"),                inverseJoinColumns = @JoinColumn(name=\"teacher_id\", referencedColumnName=\"id\"))  private Set<Teacher> teachers = new HashSet<Teacher>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 31,
+	"colNumStart": 1,
+	"lineNumEnd": 35,
+	"colNumEnd": 56,
+	"comment": "ManyToMany;Course-Teacher;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RestController @RequestMapping(value=\"api/courses\") public class CourseController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 26,
+	"colNumStart": 0,
+	"lineNumEnd": 28,
+	"colNumEnd": 31,
+	"comment": "RestController;Course;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(value=\"api/courses\") public class CourseController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 27,
+	"colNumStart": 0,
+	"lineNumEnd": 28,
+	"colNumEnd": 31,
+	"comment": "RequestMapping;CourseController;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "@Autowired  private CourseService courseService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 29,
+	"colNumStart": 1,
+	"lineNumEnd": 30,
+	"colNumEnd": 37,
+	"comment": "Autowired;CourseService;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(method = RequestMethod.GET)  public ResponseEntity<List<CourseDTO>> getCourses() {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 32,
+	"colNumStart": 1,
+	"lineNumEnd": 33,
+	"colNumEnd": 54,
+	"comment": "RequestMapping;getCourses;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": " public ResponseEntity<List<CourseDTO>> getCourses() {   List<Course> courses = courseService.findAll();   //convert courses to DTOs   List<CourseDTO> coursesDTO = new ArrayList<>();   for (Course s : courses) {    coursesDTO.add(new CourseDTO(s));   }   return new ResponseEntity<>(coursesDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 33,
+	"colNumStart": 0,
+	"lineNumEnd": 41,
+	"colNumEnd": 2,
+	"comment": "getCourses;Course"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(value=\"/{id}\", method=RequestMethod.GET)  public ResponseEntity<CourseDTO> getCourse(@PathVariable Long id){   Course course = courseService.findOne(id);   if(course == null){    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }      return new ResponseEntity<>(new CourseDTO(course), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 43,
+	"colNumStart": 1,
+	"lineNumEnd": 51,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;getCourse;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": " public ResponseEntity<CourseDTO> getCourse(@PathVariable Long id){   Course course = courseService.findOne(id);   if(course == null){    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }      return new ResponseEntity<>(new CourseDTO(course), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 44,
+	"colNumStart": 0,
+	"lineNumEnd": 51,
+	"colNumEnd": 2,
+	"comment": "getCourse;Course"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(method=RequestMethod.POST, consumes=\"application/json\")  public ResponseEntity<CourseDTO> saveCourse(@RequestBody CourseDTO courseDTO){   Course course = new Course();   course.setName(courseDTO.getName());     course = courseService.save(course);   return new ResponseEntity<>(new CourseDTO(course), HttpStatus.CREATED);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 53,
+	"colNumStart": 1,
+	"lineNumEnd": 60,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;saveCourse;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": " public ResponseEntity<CourseDTO> saveCourse(@RequestBody CourseDTO courseDTO){   Course course = new Course();   course.setName(courseDTO.getName());     course = courseService.save(course);   return new ResponseEntity<>(new CourseDTO(course), HttpStatus.CREATED);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 54,
+	"colNumStart": 0,
+	"lineNumEnd": 60,
+	"colNumEnd": 2,
+	"comment": "saveCourse;Course"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(method=RequestMethod.PUT, consumes=\"application/json\")  public ResponseEntity<CourseDTO> updateCourse(@RequestBody CourseDTO courseDTO){   //a course must exist   Course course = courseService.findOne(courseDTO.getId());    if (course == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }      course.setName(courseDTO.getName());     course = courseService.save(course);   return new ResponseEntity<>(new CourseDTO(course), HttpStatus.OK);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 62,
+	"colNumStart": 1,
+	"lineNumEnd": 74,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;updateCourse;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "public ResponseEntity<CourseDTO> updateCourse(@RequestBody CourseDTO courseDTO){   //a course must exist   Course course = courseService.findOne(courseDTO.getId());    if (course == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }      course.setName(courseDTO.getName());     course = courseService.save(course);   return new ResponseEntity<>(new CourseDTO(course), HttpStatus.OK);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 63,
+	"colNumStart": 1,
+	"lineNumEnd": 74,
+	"colNumEnd": 2,
+	"comment": "updateCourse;Course"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(value=\"/{id}\", method=RequestMethod.DELETE)  public ResponseEntity<Void> deleteCourse(@PathVariable Long id){   Course course = courseService.findOne(id);   if (course != null){    courseService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {      return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 76,
+	"colNumStart": 1,
+	"lineNumEnd": 85,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;deleteCourse;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "public ResponseEntity<Void> deleteCourse(@PathVariable Long id){   Course course = courseService.findOne(id);   if (course != null){    courseService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {      return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 77,
+	"colNumStart": 1,
+	"lineNumEnd": 85,
+	"colNumEnd": 2,
+	"comment": "deleteCourse;Course"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(value = \"/{courseId}/students\", method = RequestMethod.GET)  public ResponseEntity<List<EnrollmentDTO>> getCourseStudents(    @PathVariable Long courseId) {   Course course = courseService.findOne(courseId);   Set<Enrollment> enrollments = course.getEnrollments();   List<EnrollmentDTO> enrollmentsDTO = new ArrayList<>();   for (Enrollment e: enrollments) {    EnrollmentDTO enrollmentDTO = new EnrollmentDTO();    enrollmentDTO.setId(e.getId());    enrollmentDTO.setStartDate(e.getStartDate());    enrollmentDTO.setEndDate(e.getEndDate());    enrollmentDTO.setStudent(new StudentDTO(e.getStudent()));    //we leave course field empty        enrollmentsDTO.add(enrollmentDTO);   }   return new ResponseEntity<>(enrollmentsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 87,
+	"colNumStart": 1,
+	"lineNumEnd": 104,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;getCourseStudents;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "public ResponseEntity<List<EnrollmentDTO>> getCourseStudents(    @PathVariable Long courseId) {   Course course = courseService.findOne(courseId);   Set<Enrollment> enrollments = course.getEnrollments();   List<EnrollmentDTO> enrollmentsDTO = new ArrayList<>();   for (Enrollment e: enrollments) {    EnrollmentDTO enrollmentDTO = new EnrollmentDTO();    enrollmentDTO.setId(e.getId());    enrollmentDTO.setStartDate(e.getStartDate());    enrollmentDTO.setEndDate(e.getEndDate());    enrollmentDTO.setStudent(new StudentDTO(e.getStudent()));    //we leave course field empty        enrollmentsDTO.add(enrollmentDTO);   }   return new ResponseEntity<>(enrollmentsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 88,
+	"colNumStart": 1,
+	"lineNumEnd": 104,
+	"colNumEnd": 2,
+	"comment": "getCourseStudents;Course"
+},
+{
+	"fileName": "CourseController",
+	"content": "@RequestMapping(value = \"/{courseId}/exams\", method = RequestMethod.GET)  public ResponseEntity<List<ExamDTO>> getStudentExams(    @PathVariable Long courseId) {   Course course = courseService.findOne(courseId);   Set<Exam> exams = course.getExams();   List<ExamDTO> examsDTO = new ArrayList<>();   for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setStudent(new StudentDTO(e.getStudent()));    examDTO.setExamPeriod(new ExamPeriodDTO(e.getExamPeriod()));       examsDTO.add(examDTO);   }   return new ResponseEntity<>(examsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 106,
+	"colNumStart": 1,
+	"lineNumEnd": 124,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;getStudentExams;annotation"
+},
+{
+	"fileName": "CourseController",
+	"content": "public ResponseEntity<List<ExamDTO>> getStudentExams(    @PathVariable Long courseId) {   Course course = courseService.findOne(courseId);   Set<Exam> exams = course.getExams();   List<ExamDTO> examsDTO = new ArrayList<>();   for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setStudent(new StudentDTO(e.getStudent()));    examDTO.setExamPeriod(new ExamPeriodDTO(e.getExamPeriod()));       examsDTO.add(examDTO);   }   return new ResponseEntity<>(examsDTO, HttpStatus.OK);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 107,
+	"colNumStart": 1,
+	"lineNumEnd": 123,
+	"colNumEnd": 55,
+	"comment": "getStudentExams;Course"
+},
+{
+	"fileName": "CourseController",
+	"content": " List<EnrollmentDTO> enrollmentsDTO = new ArrayList<>();   for (Enrollment e: enrollments) {    EnrollmentDTO enrollmentDTO = new EnrollmentDTO();    enrollmentDTO.setId(e.getId());    enrollmentDTO.setStartDate(e.getStartDate());    enrollmentDTO.setEndDate(e.getEndDate());    enrollmentDTO.setStudent(new StudentDTO(e.getStudent()));    //we leave course field empty        enrollmentsDTO.add(enrollmentDTO);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 92,
+	"colNumStart": 1,
+	"lineNumEnd": 102,
+	"colNumEnd": 3,
+	"comment": "getCourseStudents;Enrollment;setEnrollment"
+},
+{
+	"fileName": "CourseController",
+	"content": " List<ExamDTO> examsDTO = new ArrayList<>();   for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setStudent(new StudentDTO(e.getStudent()));    examDTO.setExamPeriod(new ExamPeriodDTO(e.getExamPeriod()));       examsDTO.add(examDTO);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 111,
+	"colNumStart": 1,
+	"lineNumEnd": 122,
+	"colNumEnd": 3,
+	"comment": "getStudentExams;Exam;setExam"
+},
+{
+	"fileName": "CourseRepository",
+	"content": "public interface CourseRepository extends JpaRepository<Course, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "save;Course"
+},
+{
+	"fileName": "CourseRepository",
+	"content": "public interface CourseRepository extends JpaRepository<Course, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "delete;Course"
+},
+{
+	"fileName": "CourseRepository",
+	"content": "public interface CourseRepository extends JpaRepository<Course, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findAll;Course"
+},
+{
+	"fileName": "CourseRepository",
+	"content": "public interface CourseRepository extends JpaRepository<Course, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findById;Course"
+},
+{
+	"fileName": "CourseService",
+	"content": "@Service public class CourseService {",
+	"sectionType": "SERVICE",
+	"lineNumStart": 13,
+	"colNumStart": 0,
+	"lineNumEnd": 14,
+	"colNumEnd": 28,
+	"comment": "Service;CourseService;annotation"
+},
+{
+	"fileName": "CourseService",
+	"content": "@Autowired  CourseRepository courseRepository;",
+	"sectionType": "SERVICE",
+	"lineNumStart": 15,
+	"colNumStart": 1,
+	"lineNumEnd": 16,
+	"colNumEnd": 35,
+	"comment": "Autowired;CourseRepository;annotation"
+},
+{
+	"fileName": "CourseService",
+	"content": "public Course findOne(Long id) {   return courseRepository.findOne(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 18,
+	"colNumStart": 1,
+	"lineNumEnd": 20,
+	"colNumEnd": 2,
+	"comment": "findOne;Course"
+},
+{
+	"fileName": "CourseService",
+	"content": "public List<Course> findAll() {   return courseRepository.findAll();  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 22,
+	"colNumStart": 1,
+	"lineNumEnd": 24,
+	"colNumEnd": 2,
+	"comment": "findAll;Course"
+},
+{
+	"fileName": "CourseService",
+	"content": "public Course save(Course course) {   return courseRepository.save(course);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 30,
+	"colNumStart": 1,
+	"lineNumEnd": 32,
+	"colNumEnd": 2,
+	"comment": "save;Course"
+},
+{
+	"fileName": "CourseService",
+	"content": "public void remove(Long id) {   courseRepository.delete(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 34,
+	"colNumStart": 1,
+	"lineNumEnd": 36,
+	"colNumEnd": 2,
+	"comment": "remove;Course"
+},
+{
+	"fileName": "CourseService",
+	"content": "public Page<Course> findAll(Pageable page) {   return courseRepository.findAll(page);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 26,
+	"colNumStart": 1,
+	"lineNumEnd": 28,
+	"colNumEnd": 2,
+	"comment": "findAll;Course"
+},
+{
+	"fileName": "Enrollment",
+	"content": "@Entity public class Enrollment {",
+	"sectionType": "MODEL",
+	"lineNumStart": 13,
+	"colNumStart": 0,
+	"lineNumEnd": 14,
+	"colNumEnd": 25,
+	"comment": "Entity;Enrollment;annotation"
+},
+{
+	"fileName": "Enrollment",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 15,
+	"colNumStart": 1,
+	"lineNumEnd": 17,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "Enrollment",
+	"content": "@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  private Course course;",
+	"sectionType": "MODEL",
+	"lineNumStart": 23,
+	"colNumStart": 1,
+	"lineNumEnd": 24,
+	"colNumEnd": 23,
+	"comment": "ManyToOne;Enrollment-Course;annotation"
+},
+{
+	"fileName": "Enrollment",
+	"content": "@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  private Student student;",
+	"sectionType": "MODEL",
+	"lineNumStart": 26,
+	"colNumStart": 1,
+	"lineNumEnd": 27,
+	"colNumEnd": 25,
+	"comment": "ManyToOne;Enrollment-Student;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "@RestController @RequestMapping(value=\"api/enrollment\") public class EnrollmentController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 20,
+	"colNumStart": 0,
+	"lineNumEnd": 22,
+	"colNumEnd": 35,
+	"comment": "RestController;Enrollment;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "@RequestMapping(value=\"api/enrollment\") public class EnrollmentController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 21,
+	"colNumStart": 0,
+	"lineNumEnd": 22,
+	"colNumEnd": 35,
+	"comment": "RequestMapping;Enrollment;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "@Autowired  EnrollmentService enrollmentService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 23,
+	"colNumStart": 1,
+	"lineNumEnd": 24,
+	"colNumEnd": 37,
+	"comment": "Autowired;EnrollmentService;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "@Autowired  StudentService studentService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 26,
+	"colNumStart": 1,
+	"lineNumEnd": 27,
+	"colNumEnd": 31,
+	"comment": "Autowired;StudentService;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "@Autowired  CourseService courseService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 29,
+	"colNumStart": 1,
+	"lineNumEnd": 30,
+	"colNumEnd": 29,
+	"comment": "Autowired;CourseService;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": " @RequestMapping(method=RequestMethod.POST, consumes=\"application/json\")  public ResponseEntity<EnrollmentDTO> createEnrollment(    @RequestBody EnrollmentDTO enrollmentDTO) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 32,
+	"colNumStart": 0,
+	"lineNumEnd": 34,
+	"colNumEnd": 46,
+	"comment": "RequestMapping;createEnrollment;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": " public ResponseEntity<EnrollmentDTO> createEnrollment(    @RequestBody EnrollmentDTO enrollmentDTO) {   //a new enrollment must have student and course defined   if (enrollmentDTO.getStudent() == null || enrollmentDTO.getCourse() == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }     Student student =  studentService.findOne(enrollmentDTO.getStudent().getId());   Course course = courseService.findOne(enrollmentDTO.getCourse().getId());     if (student == null || course == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }        Enrollment enrollment = new Enrollment();   enrollment.setStartDate(enrollmentDTO.getStartDate());   enrollment.setEndDate(enrollmentDTO.getEndDate());   enrollment.setStudent(student);   enrollment.setCourse(course);      enrollment = enrollmentService.save(enrollment);       return new ResponseEntity<>(new EnrollmentDTO(enrollment), HttpStatus.CREATED);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 33,
+	"colNumStart": 0,
+	"lineNumEnd": 53,
+	"colNumEnd": 2,
+	"comment": "createEnrollment;Enrollment"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "Enrollment enrollment = new Enrollment();   enrollment.setStartDate(enrollmentDTO.getStartDate());   enrollment.setEndDate(enrollmentDTO.getEndDate());   enrollment.setStudent(student);   enrollment.setCourse(course);      enrollment = enrollmentService.save(enrollment);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 45,
+	"colNumStart": 2,
+	"lineNumEnd": 51,
+	"colNumEnd": 50,
+	"comment": "createEnrollment;Enrollment;setEnrollment"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": " @RequestMapping(method=RequestMethod.PUT, consumes=\"application/json\")  public ResponseEntity<EnrollmentDTO> updateEnrollment(    @RequestBody EnrollmentDTO enrollmentDTO){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 55,
+	"colNumStart": 0,
+	"lineNumEnd": 57,
+	"colNumEnd": 45,
+	"comment": "RequestMapping;updateEnrollment;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": " public ResponseEntity<EnrollmentDTO> updateEnrollment(    @RequestBody EnrollmentDTO enrollmentDTO){   //an enrollment must exist   Enrollment enrollment = enrollmentService.findOne(enrollmentDTO.getId());    if (enrollment == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }   //we allow changing startDate and endDate for an enrollment only   enrollment.setStartDate(enrollmentDTO.getStartDate());   enrollment.setEndDate(enrollmentDTO.getEndDate());     enrollment = enrollmentService.save(enrollment);   return new ResponseEntity<>(new EnrollmentDTO(enrollment), HttpStatus.OK);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 56,
+	"colNumStart": 0,
+	"lineNumEnd": 69,
+	"colNumEnd": 2,
+	"comment": "updateEnrollment;Enrollment"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "@RequestMapping(value=\"/{id}\", method=RequestMethod.DELETE)  public ResponseEntity<Void> deleteEnrollment(@PathVariable Long id){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 71,
+	"colNumStart": 1,
+	"lineNumEnd": 72,
+	"colNumEnd": 69,
+	"comment": "RequestMapping;deleteEnrollment;annotation"
+},
+{
+	"fileName": "EnrollmentController",
+	"content": "public ResponseEntity<Void> deleteEnrollment(@PathVariable Long id){   Enrollment enrollment = enrollmentService.findOne(id);   if (enrollment != null){    enrollmentService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {      return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 72,
+	"colNumStart": 1,
+	"lineNumEnd": 80,
+	"colNumEnd": 2,
+	"comment": "deleteEnrollment;Enrollment"
+},
+{
+	"fileName": "EnrollmentRepository",
+	"content": "public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "save;Enrollment"
+},
+{
+	"fileName": "EnrollmentRepository",
+	"content": "public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "delete;Enrollment"
+},
+{
+	"fileName": "EnrollmentRepository",
+	"content": "public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findAll;Enrollment"
+},
+{
+	"fileName": "EnrollmentRepository",
+	"content": "public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findById;Enrollment"
+},
+{
+	"fileName": "EnrollmentService",
+	"content": "@Service public class EnrollmentService {",
+	"sectionType": "SERVICE",
+	"lineNumStart": 11,
+	"colNumStart": 0,
+	"lineNumEnd": 12,
+	"colNumEnd": 32,
+	"comment": "Service;EnrollmentService;annotation"
+},
+{
+	"fileName": "EnrollmentService",
+	"content": "@Autowired  EnrollmentRepository enrollmentRepository;",
+	"sectionType": "SERVICE",
+	"lineNumStart": 13,
+	"colNumStart": 1,
+	"lineNumEnd": 14,
+	"colNumEnd": 43,
+	"comment": "Autowired;EnrollmentRepository;annotation"
+},
+{
+	"fileName": "EnrollmentService",
+	"content": "public Enrollment findOne(Long id) {   return enrollmentRepository.findOne(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 16,
+	"colNumStart": 1,
+	"lineNumEnd": 18,
+	"colNumEnd": 2,
+	"comment": "findOne;Enrollment"
+},
+{
+	"fileName": "EnrollmentService",
+	"content": "public List<Enrollment> findAll() {   return enrollmentRepository.findAll();  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 20,
+	"colNumStart": 1,
+	"lineNumEnd": 22,
+	"colNumEnd": 2,
+	"comment": "findAll;Enrollment"
+},
+{
+	"fileName": "EnrollmentService",
+	"content": "public Enrollment save(Enrollment enrollment) {   return enrollmentRepository.save(enrollment);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 24,
+	"colNumStart": 1,
+	"lineNumEnd": 26,
+	"colNumEnd": 2,
+	"comment": "save;Enrollment"
+},
+{
+	"fileName": "EnrollmentService",
+	"content": "public void remove(Long id) {   enrollmentRepository.delete(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 28,
+	"colNumStart": 1,
+	"lineNumEnd": 30,
+	"colNumEnd": 2,
+	"comment": "remove;Enrollment"
+},
+{
+	"fileName": "Exam",
+	"content": "@Entity public class Exam {",
+	"sectionType": "MODEL",
+	"lineNumStart": 12,
+	"colNumStart": 0,
+	"lineNumEnd": 13,
+	"colNumEnd": 19,
+	"comment": "Entity;Exam;annotation"
+},
+{
+	"fileName": "Exam",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 14,
+	"colNumStart": 1,
+	"lineNumEnd": 16,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "Exam",
+	"content": "@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  private Course course;",
+	"sectionType": "MODEL",
+	"lineNumStart": 24,
+	"colNumStart": 4,
+	"lineNumEnd": 25,
+	"colNumEnd": 23,
+	"comment": "ManyToOne;Exam-Course;annotation"
+},
+{
+	"fileName": "Exam",
+	"content": "@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  private Student student;",
+	"sectionType": "MODEL",
+	"lineNumStart": 27,
+	"colNumStart": 4,
+	"lineNumEnd": 28,
+	"colNumEnd": 25,
+	"comment": "ManyToOne;Exam-Student;annotation"
+},
+{
+	"fileName": "Exam",
+	"content": "@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  private ExamPeriod examPeriod;",
+	"sectionType": "MODEL",
+	"lineNumStart": 30,
+	"colNumStart": 4,
+	"lineNumEnd": 31,
+	"colNumEnd": 31,
+	"comment": "ManyToOne;Exam-ExamPeriod;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": "@RestController @RequestMapping(value = \"api/exams\") public class ExamController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 22,
+	"colNumStart": 0,
+	"lineNumEnd": 24,
+	"colNumEnd": 29,
+	"comment": "RestController;ExamController;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": "@RequestMapping(value = \"api/exams\") public class ExamController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 23,
+	"colNumStart": 0,
+	"lineNumEnd": 24,
+	"colNumEnd": 29,
+	"comment": "RequestMapping;ExamController;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": "@Autowired  ExamService examService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 25,
+	"colNumStart": 1,
+	"lineNumEnd": 26,
+	"colNumEnd": 25,
+	"comment": "Autowired;ExamService;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": "@Autowired  StudentService studentService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 28,
+	"colNumStart": 1,
+	"lineNumEnd": 29,
+	"colNumEnd": 31,
+	"comment": "Autowired;StudentService;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": "@Autowired  CourseService courseService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 31,
+	"colNumStart": 1,
+	"lineNumEnd": 32,
+	"colNumEnd": 29,
+	"comment": "Autowired;CourseService;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": " @Autowired  ExamPeriodService examPeriodService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 34,
+	"colNumStart": 0,
+	"lineNumEnd": 35,
+	"colNumEnd": 37,
+	"comment": "Autowired;ExamPeriodService;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": "@RequestMapping(method = RequestMethod.POST, consumes = \"application/json\")  public ResponseEntity<ExamDTO> createExam(@RequestBody ExamDTO examDTO) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 39,
+	"colNumStart": 1,
+	"lineNumEnd": 40,
+	"colNumEnd": 74,
+	"comment": "RequestMapping;createExam;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": " public ResponseEntity<ExamDTO> createExam(@RequestBody ExamDTO examDTO) {   // a new exam must have student, course and examPeriod defined   if (examDTO.getStudent() == null || examDTO.getCourse() == null     || examDTO.getExamPeriod() == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }   Student student = studentService.findOne(examDTO.getStudent().getId());   Course course = courseService.findOne(examDTO.getCourse().getId());   ExamPeriod examPeriod = examPeriodService.findOne(examDTO     .getExamPeriod().getId());   if (student == null || course == null || examPeriod == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }    Exam exam = new Exam();   exam.setDate(examDTO.getDate());   exam.setExamPoints(examDTO.getExamPoints());   exam.setLabPoints(examDTO.getLabPoints());   exam.setStudent(student);   exam.setCourse(course);   exam.setExamPeriod(examPeriod);    exam = examService.save(exam);   return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.CREATED);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 40,
+	"colNumStart": 0,
+	"lineNumEnd": 64,
+	"colNumEnd": 2,
+	"comment": "createExam;Exam"
+},
+{
+	"fileName": "ExamController",
+	"content": "Exam exam = new Exam();   exam.setDate(examDTO.getDate());   exam.setExamPoints(examDTO.getExamPoints());   exam.setLabPoints(examDTO.getLabPoints());   exam.setStudent(student);   exam.setCourse(course);   exam.setExamPeriod(examPeriod);    exam = examService.save(exam);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 54,
+	"colNumStart": 2,
+	"lineNumEnd": 62,
+	"colNumEnd": 32,
+	"comment": "createExam;Exam;setExam"
+},
+{
+	"fileName": "ExamController",
+	"content": "@RequestMapping(method = RequestMethod.PUT, consumes = \"application/json\")  public ResponseEntity<ExamDTO> updateExam(@RequestBody ExamDTO examDTO) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 66,
+	"colNumStart": 1,
+	"lineNumEnd": 67,
+	"colNumEnd": 74,
+	"comment": "RequestMapping;updateExam;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": " public ResponseEntity<ExamDTO> updateExam(@RequestBody ExamDTO examDTO) {   // an exam must exist   Exam exam = examService.findOne(examDTO.getId());   if (exam == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }   // we allow changing date and points for an exam only   exam.setDate(examDTO.getDate());   exam.setExamPoints(examDTO.getExamPoints());   exam.setLabPoints(examDTO.getLabPoints());    exam = examService.save(exam);   return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 67,
+	"colNumStart": 0,
+	"lineNumEnd": 80,
+	"colNumEnd": 2,
+	"comment": "updateExam;Exam"
+},
+{
+	"fileName": "ExamController",
+	"content": " exam.setDate(examDTO.getDate());   exam.setExamPoints(examDTO.getExamPoints());   exam.setLabPoints(examDTO.getLabPoints());    exam = examService.save(exam);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 74,
+	"colNumStart": 1,
+	"lineNumEnd": 78,
+	"colNumEnd": 32,
+	"comment": "updateExam;Exam;setExam"
+},
+{
+	"fileName": "ExamController",
+	"content": "@RequestMapping(value = \"/{id}\", method = RequestMethod.DELETE)  public ResponseEntity<Void> deleteExam(@PathVariable Long id) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 82,
+	"colNumStart": 1,
+	"lineNumEnd": 83,
+	"colNumEnd": 64,
+	"comment": "RequestMapping;deleteExam;annotation"
+},
+{
+	"fileName": "ExamController",
+	"content": " public ResponseEntity<Void> deleteExam(@PathVariable Long id) {   Exam exam = examService.findOne(id);   if (exam != null) {    examService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 83,
+	"colNumStart": 0,
+	"lineNumEnd": 91,
+	"colNumEnd": 2,
+	"comment": "deleteExam;Exam"
+},
+{
+	"fileName": "ExamPeriod",
+	"content": "@Entity public class ExamPeriod",
+	"sectionType": "MODEL",
+	"lineNumStart": 15,
+	"colNumStart": 0,
+	"lineNumEnd": 16,
+	"colNumEnd": 23,
+	"comment": "Entity;ExamPeriod;annotation"
+},
+{
+	"fileName": "ExamPeriod",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 17,
+	"colNumStart": 1,
+	"lineNumEnd": 19,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "ExamPeriod",
+	"content": " @OneToMany(mappedBy = \"examPeriod\", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)  private Set<Exam> exams = new HashSet<Exam>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 27,
+	"colNumStart": 0,
+	"lineNumEnd": 28,
+	"colNumEnd": 47,
+	"comment": "OneToMany;ExamPeriod-Exam;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RestController @RequestMapping(value=\"api/examPeriods\") public class ExamPeriodController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 26,
+	"colNumStart": 0,
+	"lineNumEnd": 28,
+	"colNumEnd": 35,
+	"comment": "RestController;ExamPeriodController;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(value=\"api/examPeriods\") public class ExamPeriodController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 27,
+	"colNumStart": 0,
+	"lineNumEnd": 28,
+	"colNumEnd": 35,
+	"comment": "RequestMapping;ExamPeriodController;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@Autowired  private ExamPeriodService examPeriodService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 29,
+	"colNumStart": 1,
+	"lineNumEnd": 30,
+	"colNumEnd": 45,
+	"comment": "Autowired;ExamPeriodService;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(value=\"/all\", method = RequestMethod.GET)  public ResponseEntity<List<ExamPeriodDTO>> getAllExamPeriods() {   List<ExamPeriod> examPeriods = examPeriodService.findAll();   //convert examPeriods to DTOs   List<ExamPeriodDTO> examPeriodsDTO = new ArrayList<>();   for (ExamPeriod s : examPeriods) {    examPeriodsDTO.add(new ExamPeriodDTO(s));   }   return new ResponseEntity<>(examPeriodsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 32,
+	"colNumStart": 1,
+	"lineNumEnd": 41,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;getAllExamPeriods;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "public ResponseEntity<List<ExamPeriodDTO>> getAllExamPeriods() {   List<ExamPeriod> examPeriods = examPeriodService.findAll();   //convert examPeriods to DTOs   List<ExamPeriodDTO> examPeriodsDTO = new ArrayList<>();   for (ExamPeriod s : examPeriods) {    examPeriodsDTO.add(new ExamPeriodDTO(s));   }   return new ResponseEntity<>(examPeriodsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 33,
+	"colNumStart": 1,
+	"lineNumEnd": 41,
+	"colNumEnd": 2,
+	"comment": "getAllExamPeriods;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(method = RequestMethod.GET)  public ResponseEntity<List<ExamPeriodDTO>> getExamPeriodsPage(Pageable page) {   //page object holds data about pagination and sorting   //the object is created based on the url parameters \"page\", \"size\" and \"sort\"    Page<ExamPeriod> examPeriods = examPeriodService.findAll(page);      //convert examPeriods to DTOs   List<ExamPeriodDTO> examPeriodsDTO = new ArrayList<>();   for (ExamPeriod s : examPeriods) {    examPeriodsDTO.add(new ExamPeriodDTO(s));   }   return new ResponseEntity<>(examPeriodsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 43,
+	"colNumStart": 1,
+	"lineNumEnd": 55,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;getExamPeriodsPage;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "public ResponseEntity<List<ExamPeriodDTO>> getExamPeriodsPage(Pageable page) {   //page object holds data about pagination and sorting   //the object is created based on the url parameters \"page\", \"size\" and \"sort\"    Page<ExamPeriod> examPeriods = examPeriodService.findAll(page);      //convert examPeriods to DTOs   List<ExamPeriodDTO> examPeriodsDTO = new ArrayList<>();   for (ExamPeriod s : examPeriods) {    examPeriodsDTO.add(new ExamPeriodDTO(s));   }   return new ResponseEntity<>(examPeriodsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 44,
+	"colNumStart": 1,
+	"lineNumEnd": 55,
+	"colNumEnd": 2,
+	"comment": "getExamPeriodsPage;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(value=\"/{id}\", method=RequestMethod.GET)  public ResponseEntity<ExamPeriodDTO> getExamPeriod(@PathVariable Long id){   ExamPeriod examPeriod = examPeriodService.findOne(id);   if(examPeriod == null){    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }      return new ResponseEntity<>(new ExamPeriodDTO(examPeriod), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 57,
+	"colNumStart": 1,
+	"lineNumEnd": 65,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;getExamPeriod;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "public ResponseEntity<ExamPeriodDTO> getExamPeriod(@PathVariable Long id){   ExamPeriod examPeriod = examPeriodService.findOne(id);   if(examPeriod == null){    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }      return new ResponseEntity<>(new ExamPeriodDTO(examPeriod), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 58,
+	"colNumStart": 1,
+	"lineNumEnd": 65,
+	"colNumEnd": 2,
+	"comment": "getExamPeriod;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(method=RequestMethod.POST, consumes=\"application/json\")  public ResponseEntity<ExamPeriodDTO> saveExamPeriod(@RequestBody ExamPeriodDTO examPeriodDTO){   ExamPeriod examPeriod = new ExamPeriod();      examPeriod.setName(examPeriodDTO.getName());   examPeriod.setStartDate(examPeriodDTO.getStartDate());   examPeriod.setEndDate(examPeriodDTO.getEndDate());      examPeriod = examPeriodService.save(examPeriod);   return new ResponseEntity<>(new ExamPeriodDTO(examPeriod), HttpStatus.CREATED);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 67,
+	"colNumStart": 1,
+	"lineNumEnd": 77,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;saveExamPeriod;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "public ResponseEntity<ExamPeriodDTO> saveExamPeriod(@RequestBody ExamPeriodDTO examPeriodDTO){   ExamPeriod examPeriod = new ExamPeriod();      examPeriod.setName(examPeriodDTO.getName());   examPeriod.setStartDate(examPeriodDTO.getStartDate());   examPeriod.setEndDate(examPeriodDTO.getEndDate());      examPeriod = examPeriodService.save(examPeriod);   return new ResponseEntity<>(new ExamPeriodDTO(examPeriod), HttpStatus.CREATED);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 68,
+	"colNumStart": 1,
+	"lineNumEnd": 77,
+	"colNumEnd": 2,
+	"comment": "saveExamPeriod;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": " ExamPeriod examPeriod = new ExamPeriod();      examPeriod.setName(examPeriodDTO.getName());   examPeriod.setStartDate(examPeriodDTO.getStartDate());   examPeriod.setEndDate(examPeriodDTO.getEndDate());      examPeriod = examPeriodService.save(examPeriod);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 69,
+	"colNumStart": 1,
+	"lineNumEnd": 75,
+	"colNumEnd": 50,
+	"comment": "saveExamPeriod;ExamPeriod;setExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(method=RequestMethod.PUT, consumes=\"application/json\")  public ResponseEntity<ExamPeriodDTO> updateExamPeriod(@RequestBody ExamPeriodDTO examPeriodDTO){   //a examPeriod must exist   ExamPeriod examPeriod = examPeriodService.findOne(examPeriodDTO.getId());    if (examPeriod == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }      examPeriod.setName(examPeriodDTO.getName());   examPeriod.setStartDate(examPeriodDTO.getStartDate());   examPeriod.setEndDate(examPeriodDTO.getEndDate());      examPeriod = examPeriodService.save(examPeriod);   return new ResponseEntity<>(new ExamPeriodDTO(examPeriod), HttpStatus.OK);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 79,
+	"colNumStart": 1,
+	"lineNumEnd": 93,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;updateExamPeriod;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "public ResponseEntity<ExamPeriodDTO> updateExamPeriod(@RequestBody ExamPeriodDTO examPeriodDTO){   //a examPeriod must exist   ExamPeriod examPeriod = examPeriodService.findOne(examPeriodDTO.getId());    if (examPeriod == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }      examPeriod.setName(examPeriodDTO.getName());   examPeriod.setStartDate(examPeriodDTO.getStartDate());   examPeriod.setEndDate(examPeriodDTO.getEndDate());      examPeriod = examPeriodService.save(examPeriod);   return new ResponseEntity<>(new ExamPeriodDTO(examPeriod), HttpStatus.OK);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 80,
+	"colNumStart": 1,
+	"lineNumEnd": 93,
+	"colNumEnd": 2,
+	"comment": "updateExamPeriod;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "examPeriod.setName(examPeriodDTO.getName());   examPeriod.setStartDate(examPeriodDTO.getStartDate());   examPeriod.setEndDate(examPeriodDTO.getEndDate());      examPeriod = examPeriodService.save(examPeriod);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 87,
+	"colNumStart": 2,
+	"lineNumEnd": 91,
+	"colNumEnd": 50,
+	"comment": "updateExamPeriod;ExamPeriod;setExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(value=\"/{id}\", method=RequestMethod.DELETE)  public ResponseEntity<Void> deleteExamPeriod(@PathVariable Long id){   ExamPeriod examPeriod = examPeriodService.findOne(id);   if (examPeriod != null){    examPeriodService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {      return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 95,
+	"colNumStart": 1,
+	"lineNumEnd": 104,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;deleteExamPeriood;annotation"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "public ResponseEntity<Void> deleteExamPeriod(@PathVariable Long id){   ExamPeriod examPeriod = examPeriodService.findOne(id);   if (examPeriod != null){    examPeriodService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {      return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 96,
+	"colNumStart": 1,
+	"lineNumEnd": 104,
+	"colNumEnd": 2,
+	"comment": "deleteExamPeriod;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "@RequestMapping(value = \"/{examPeriodId}/exams\", method = RequestMethod.GET)  public ResponseEntity<List<ExamDTO>> getExamPeriodExams(    @PathVariable Long examPeriodId) {   ExamPeriod examPeriod = examPeriodService.findOne(examPeriodId);   Set<Exam> exams = examPeriod.getExams();   List<ExamDTO> examsDTO = new ArrayList<>();   for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setCourse(new CourseDTO(e.getCourse()));    examDTO.setStudent(new StudentDTO(e.getStudent()));       examsDTO.add(examDTO);   }   return new ResponseEntity<>(examsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 106,
+	"colNumStart": 1,
+	"lineNumEnd": 124,
+	"colNumEnd": 2,
+	"comment": "RequestMapping;getExamPeriodExams"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "public ResponseEntity<List<ExamDTO>> getExamPeriodExams(    @PathVariable Long examPeriodId) {   ExamPeriod examPeriod = examPeriodService.findOne(examPeriodId);   Set<Exam> exams = examPeriod.getExams();   List<ExamDTO> examsDTO = new ArrayList<>();   for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setCourse(new CourseDTO(e.getCourse()));    examDTO.setStudent(new StudentDTO(e.getStudent()));       examsDTO.add(examDTO);   }   return new ResponseEntity<>(examsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 107,
+	"colNumStart": 1,
+	"lineNumEnd": 124,
+	"colNumEnd": 2,
+	"comment": "getExamPeriodExams;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodController",
+	"content": "List<ExamDTO> examsDTO = new ArrayList<>();   for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setCourse(new CourseDTO(e.getCourse()));    examDTO.setStudent(new StudentDTO(e.getStudent()));       examsDTO.add(examDTO);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 111,
+	"colNumStart": 2,
+	"lineNumEnd": 122,
+	"colNumEnd": 3,
+	"comment": "getExamPeriodExams;Exam;setExam"
+},
+{
+	"fileName": "ExamPeriodRepository",
+	"content": "public interface ExamPeriodRepository extends JpaRepository<ExamPeriod, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "save;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodRepository",
+	"content": "public interface ExamPeriodRepository extends JpaRepository<ExamPeriod, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "delete;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodRepository",
+	"content": "public interface ExamPeriodRepository extends JpaRepository<ExamPeriod, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findAll;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodRepository",
+	"content": "public interface ExamPeriodRepository extends JpaRepository<ExamPeriod, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findById;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodService",
+	"content": "@Service public class ExamPeriodService {",
+	"sectionType": "SERVICE",
+	"lineNumStart": 13,
+	"colNumStart": 0,
+	"lineNumEnd": 14,
+	"colNumEnd": 32,
+	"comment": "Service;ExamPeriodService;annotation"
+},
+{
+	"fileName": "ExamPeriodService",
+	"content": "@Autowired  ExamPeriodRepository examPeriodRepository;",
+	"sectionType": "SERVICE",
+	"lineNumStart": 15,
+	"colNumStart": 1,
+	"lineNumEnd": 16,
+	"colNumEnd": 43,
+	"comment": "Autowired;ExamPeriodRepository;annotation"
+},
+{
+	"fileName": "ExamPeriodService",
+	"content": "public ExamPeriod findOne(Long id) {   return examPeriodRepository.findOne(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 18,
+	"colNumStart": 1,
+	"lineNumEnd": 20,
+	"colNumEnd": 2,
+	"comment": "findOne;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodService",
+	"content": "public List<ExamPeriod> findAll() {   return examPeriodRepository.findAll();  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 22,
+	"colNumStart": 1,
+	"lineNumEnd": 24,
+	"colNumEnd": 2,
+	"comment": "findAll;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodService",
+	"content": "public Page<ExamPeriod> findAll(Pageable page) {   return examPeriodRepository.findAll(page);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 26,
+	"colNumStart": 1,
+	"lineNumEnd": 28,
+	"colNumEnd": 2,
+	"comment": "findAll;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodService",
+	"content": "public ExamPeriod save(ExamPeriod examPeriod) {   return examPeriodRepository.save(examPeriod);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 30,
+	"colNumStart": 1,
+	"lineNumEnd": 32,
+	"colNumEnd": 2,
+	"comment": "save;ExamPeriod"
+},
+{
+	"fileName": "ExamPeriodService",
+	"content": "public void remove(Long id) {   examPeriodRepository.delete(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 34,
+	"colNumStart": 1,
+	"lineNumEnd": 36,
+	"colNumEnd": 2,
+	"comment": "remove;ExamPeriod"
+},
+{
+	"fileName": "ExamRepository",
+	"content": "public interface ExamRepository extends JpaRepository<Exam, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "save;Exam"
+},
+{
+	"fileName": "ExamRepository",
+	"content": "public interface ExamRepository extends JpaRepository<Exam, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "delete;Exam"
+},
+{
+	"fileName": "ExamRepository",
+	"content": "public interface ExamRepository extends JpaRepository<Exam, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findAll;Exam"
+},
+{
+	"fileName": "ExamRepository",
+	"content": "public interface ExamRepository extends JpaRepository<Exam, Long> {  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findById;Exam"
+},
+{
+	"fileName": "ExamService",
+	"content": "@Service public class ExamService {",
+	"sectionType": "SERVICE",
+	"lineNumStart": 11,
+	"colNumStart": 0,
+	"lineNumEnd": 12,
+	"colNumEnd": 26,
+	"comment": "Service;ExamService;annotation"
+},
+{
+	"fileName": "ExamService",
+	"content": "@Autowired  ExamRepository examRepository;",
+	"sectionType": "SERVICE",
+	"lineNumStart": 13,
+	"colNumStart": 1,
+	"lineNumEnd": 14,
+	"colNumEnd": 31,
+	"comment": "Autowired;ExamRepository;annotation"
+},
+{
+	"fileName": "ExamService",
+	"content": "public Exam findOne(Long id) {   return examRepository.findOne(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 16,
+	"colNumStart": 1,
+	"lineNumEnd": 18,
+	"colNumEnd": 2,
+	"comment": "findOne;Exam"
+},
+{
+	"fileName": "ExamService",
+	"content": "public List<Exam> findAll() {   return examRepository.findAll();  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 20,
+	"colNumStart": 1,
+	"lineNumEnd": 22,
+	"colNumEnd": 2,
+	"comment": "findAll;Exam"
+},
+{
+	"fileName": "ExamService",
+	"content": "public Exam save(Exam exam) {   return examRepository.save(exam);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 24,
+	"colNumStart": 1,
+	"lineNumEnd": 26,
+	"colNumEnd": 2,
+	"comment": "save;Exam"
+},
+{
+	"fileName": "ExamService",
+	"content": "public void remove(Long id) {   examRepository.delete(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 28,
+	"colNumStart": 1,
+	"lineNumEnd": 30,
+	"colNumEnd": 2,
+	"comment": "remove;Exam"
+},
+{
+	"fileName": "Student",
+	"content": "@Entity public class Student {",
+	"sectionType": "MODEL",
+	"lineNumStart": 15,
+	"colNumStart": 0,
+	"lineNumEnd": 16,
+	"colNumEnd": 22,
+	"comment": "Entity;Student;annotation"
+},
+{
+	"fileName": "Student",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 17,
+	"colNumStart": 1,
+	"lineNumEnd": 19,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "Student",
+	"content": "@OneToMany(mappedBy = \"student\", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)  private Set<Enrollment> enrollments = new HashSet<Enrollment>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 28,
+	"colNumStart": 1,
+	"lineNumEnd": 29,
+	"colNumEnd": 65,
+	"comment": "OneToMany;Student-Enrollment;annotation"
+},
+{
+	"fileName": "Student",
+	"content": "@OneToMany(mappedBy = \"student\", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)  private Set<Exam> exams = new HashSet<Exam>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 31,
+	"colNumStart": 1,
+	"lineNumEnd": 32,
+	"colNumEnd": 47,
+	"comment": "OneToMany;Student-Exam;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RestController @RequestMapping(value=\"api/students\") public class StudentController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 29,
+	"colNumStart": 0,
+	"lineNumEnd": 31,
+	"colNumEnd": 32,
+	"comment": "RestController;StudentController;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value=\"api/students\") public class StudentController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 30,
+	"colNumStart": 0,
+	"lineNumEnd": 31,
+	"colNumEnd": 32,
+	"comment": "RequestMapping;StudentController;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "@Autowired  private StudentService studentService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 32,
+	"colNumStart": 1,
+	"lineNumEnd": 33,
+	"colNumEnd": 39,
+	"comment": "Autowired;StudentService;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value=\"/all\", method = RequestMethod.GET)  public ResponseEntity<List<StudentDTO>> getAllStudents() {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 35,
+	"colNumStart": 1,
+	"lineNumEnd": 36,
+	"colNumEnd": 59,
+	"comment": "RequestMapping;getAllStudents;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<List<StudentDTO>> getAllStudents() {   List<Student> students = studentService.findAll();   //convert students to DTOs   List<StudentDTO> studentsDTO = new ArrayList<>();   for (Student s : students) {    studentsDTO.add(new StudentDTO(s));   }   return new ResponseEntity<>(studentsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 36,
+	"colNumStart": 1,
+	"lineNumEnd": 44,
+	"colNumEnd": 2,
+	"comment": "getAllStudents;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(method = RequestMethod.GET)  public ResponseEntity<List<StudentDTO>> getStudentsPage(Pageable page) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 46,
+	"colNumStart": 1,
+	"lineNumEnd": 47,
+	"colNumEnd": 73,
+	"comment": "RequestMapping;getStudentsPage;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<List<StudentDTO>> getStudentsPage(Pageable page) {   //page object holds data about pagination and sorting   //the object is created based on the url parameters \"page\", \"size\" and \"sort\"    Page<Student> students = studentService.findAll(page);      //convert students to DTOs   List<StudentDTO> studentsDTO = new ArrayList<>();   for (Student s : students) {    studentsDTO.add(new StudentDTO(s));   }   return new ResponseEntity<>(studentsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 47,
+	"colNumStart": 1,
+	"lineNumEnd": 58,
+	"colNumEnd": 2,
+	"comment": "getStudentsPage;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value=\"/{id}\", method=RequestMethod.GET)  public ResponseEntity<StudentDTO> getStudent(@PathVariable Long id){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 60,
+	"colNumStart": 1,
+	"lineNumEnd": 61,
+	"colNumEnd": 69,
+	"comment": "RequestMapping;getStudent;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<StudentDTO> getStudent(@PathVariable Long id){   Student student = studentService.findOne(id);   if(student == null){    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }      return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 61,
+	"colNumStart": 1,
+	"lineNumEnd": 68,
+	"colNumEnd": 2,
+	"comment": "getStudent;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(method=RequestMethod.POST, consumes=\"application/json\")  public ResponseEntity<StudentDTO> saveStudent(@RequestBody StudentDTO studentDTO){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 70,
+	"colNumStart": 1,
+	"lineNumEnd": 71,
+	"colNumEnd": 83,
+	"comment": "RequestMapping;saveStudent;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<StudentDTO> saveStudent(@RequestBody StudentDTO studentDTO){   Student student = new Student();   student.setCardNumber(studentDTO.getCardNumber());   student.setFirstName(studentDTO.getFirstName());   student.setLastName(studentDTO.getLastName());      student = studentService.save(student);   return new ResponseEntity<>(new StudentDTO(student), HttpStatus.CREATED);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 71,
+	"colNumStart": 1,
+	"lineNumEnd": 79,
+	"colNumEnd": 2,
+	"comment": "saveStudent;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "Student student = new Student();   student.setCardNumber(studentDTO.getCardNumber());   student.setFirstName(studentDTO.getFirstName());   student.setLastName(studentDTO.getLastName());      student = studentService.save(student);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 72,
+	"colNumStart": 2,
+	"lineNumEnd": 77,
+	"colNumEnd": 41,
+	"comment": "saveStudent;Student;setStudent"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(method=RequestMethod.PUT, consumes=\"application/json\")  public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 81,
+	"colNumStart": 1,
+	"lineNumEnd": 82,
+	"colNumEnd": 85,
+	"comment": "RequestMapping;updateStudent;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": " public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO){   //a student must exist   Student student = studentService.findOne(studentDTO.getId());    if (student == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }      student.setCardNumber(studentDTO.getCardNumber());   student.setFirstName(studentDTO.getFirstName());   student.setLastName(studentDTO.getLastName());      student = studentService.save(student);   return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 82,
+	"colNumStart": 0,
+	"lineNumEnd": 95,
+	"colNumEnd": 2,
+	"comment": "updateStudent;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "student.setCardNumber(studentDTO.getCardNumber());   student.setFirstName(studentDTO.getFirstName());   student.setLastName(studentDTO.getLastName());      student = studentService.save(student);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 89,
+	"colNumStart": 2,
+	"lineNumEnd": 93,
+	"colNumEnd": 41,
+	"comment": "updateStudent;Student;setStudent"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value=\"/{id}\", method=RequestMethod.DELETE)  public ResponseEntity<Void> deleteStudent(@PathVariable Long id){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 97,
+	"colNumStart": 1,
+	"lineNumEnd": 98,
+	"colNumEnd": 66,
+	"comment": "RequestMapping;deleteStudent;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<Void> deleteStudent(@PathVariable Long id){   Student student = studentService.findOne(id);   if (student != null){    studentService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {      return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 98,
+	"colNumStart": 1,
+	"lineNumEnd": 106,
+	"colNumEnd": 2,
+	"comment": "deleteStudent;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value=\"/findCard\", method=RequestMethod.GET)  public ResponseEntity<StudentDTO> getStudentByCard(    @RequestParam String cardNumber) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 108,
+	"colNumStart": 1,
+	"lineNumEnd": 110,
+	"colNumEnd": 37,
+	"comment": "RequestMapping;getStudentByCard;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<StudentDTO> getStudentByCard(    @RequestParam String cardNumber) {   Student student = studentService.findByCard(cardNumber);   if(student == null){    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }     return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 109,
+	"colNumStart": 1,
+	"lineNumEnd": 116,
+	"colNumEnd": 2,
+	"comment": "getStudentByCard;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value = \"/findLastName\", method = RequestMethod.GET)  public ResponseEntity<List<StudentDTO>> getStudentsByLastName(    @RequestParam String lastName) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 118,
+	"colNumStart": 1,
+	"lineNumEnd": 120,
+	"colNumEnd": 35,
+	"comment": "RequestMapping;getStudentsByLastName;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<List<StudentDTO>> getStudentsByLastName(    @RequestParam String lastName) {   List<Student> students = studentService.findByLastName(lastName);   //convert students to DTOs   List<StudentDTO> studentsDTO = new ArrayList<>();   for (Student s : students) {    studentsDTO.add(new StudentDTO(s));   }   return new ResponseEntity<>(studentsDTO, HttpStatus.OK);  } ",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 119,
+	"colNumStart": 1,
+	"lineNumEnd": 128,
+	"colNumEnd": 3,
+	"comment": "getStudentsByLastName;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value = \"/{studentId}/courses\", method = RequestMethod.GET)  public ResponseEntity<List<EnrollmentDTO>> getStudentCourses(    @PathVariable Long studentId) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 130,
+	"colNumStart": 1,
+	"lineNumEnd": 132,
+	"colNumEnd": 34,
+	"comment": "RequestMapping;getStudentCourses;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<List<EnrollmentDTO>> getStudentCourses(    @PathVariable Long studentId) {   Student student = studentService.findOne(studentId);   Set<Enrollment> enrollments = student.getEnrollments();   List<EnrollmentDTO> enrollmentsDTO = new ArrayList<>();   for (Enrollment e: enrollments) {    EnrollmentDTO enrollmentDTO = new EnrollmentDTO();    enrollmentDTO.setId(e.getId());    enrollmentDTO.setStartDate(e.getStartDate());    enrollmentDTO.setEndDate(e.getEndDate());    enrollmentDTO.setCourse(new CourseDTO(e.getCourse()));    //we leave student field empty        enrollmentsDTO.add(enrollmentDTO);   }   return new ResponseEntity<>(enrollmentsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 131,
+	"colNumStart": 1,
+	"lineNumEnd": 147,
+	"colNumEnd": 2,
+	"comment": "getStudentCourses;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "for (Enrollment e: enrollments) {    EnrollmentDTO enrollmentDTO = new EnrollmentDTO();    enrollmentDTO.setId(e.getId());    enrollmentDTO.setStartDate(e.getStartDate());    enrollmentDTO.setEndDate(e.getEndDate());    enrollmentDTO.setCourse(new CourseDTO(e.getCourse()));    //we leave student field empty        enrollmentsDTO.add(enrollmentDTO);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 136,
+	"colNumStart": 2,
+	"lineNumEnd": 145,
+	"colNumEnd": 3,
+	"comment": "getStudentCourses;Enrollment;setEnrollment"
+},
+{
+	"fileName": "StudentController",
+	"content": "@RequestMapping(value = \"/{studentId}/exams\", method = RequestMethod.GET)  public ResponseEntity<List<ExamDTO>> getStudentExams(    @PathVariable Long studentId) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 149,
+	"colNumStart": 1,
+	"lineNumEnd": 151,
+	"colNumEnd": 34,
+	"comment": "RequestMapping;getStudentExams;annotation"
+},
+{
+	"fileName": "StudentController",
+	"content": "public ResponseEntity<List<ExamDTO>> getStudentExams(    @PathVariable Long studentId) {   Student student = studentService.findOne(studentId);   Set<Exam> exams = student.getExams();   List<ExamDTO> examsDTO = new ArrayList<>();   for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setCourse(new CourseDTO(e.getCourse()));    examDTO.setExamPeriod(new ExamPeriodDTO(e.getExamPeriod()));       examsDTO.add(examDTO);   }   return new ResponseEntity<>(examsDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 150,
+	"colNumStart": 1,
+	"lineNumEnd": 167,
+	"colNumEnd": 2,
+	"comment": "getStudentExams;Student"
+},
+{
+	"fileName": "StudentController",
+	"content": "for (Exam e: exams) {    ExamDTO examDTO = new ExamDTO();    examDTO.setId(e.getId());    examDTO.setExamPoints(e.getExamPoints());    examDTO.setLabPoints(e.getLabPoints());    examDTO.setDate(e.getDate());    examDTO.setCourse(new CourseDTO(e.getCourse()));    examDTO.setExamPeriod(new ExamPeriodDTO(e.getExamPeriod()));       examsDTO.add(examDTO);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 155,
+	"colNumStart": 2,
+	"lineNumEnd": 165,
+	"colNumEnd": 3,
+	"comment": "getStudentExams;Exam;setExam"
+},
+{
+	"fileName": "StudentRepository",
+	"content": "public interface StudentRepository extends JpaRepository<Student, Long> {",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 9,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 73,
+	"comment": "save;Student"
+},
+{
+	"fileName": "StudentRepository",
+	"content": "public interface StudentRepository extends JpaRepository<Student, Long> {",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 9,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 73,
+	"comment": "delete;Student"
+},
+{
+	"fileName": "StudentRepository",
+	"content": "public interface StudentRepository extends JpaRepository<Student, Long> {",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 9,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 73,
+	"comment": "findAll;Student"
+},
+{
+	"fileName": "StudentRepository",
+	"content": "public interface StudentRepository extends JpaRepository<Student, Long> {",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 9,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 73,
+	"comment": "findById;Student"
+},
+{
+	"fileName": "StudentRepository",
+	"content": "Student findOneByCardNumber(String cardNumber);",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 10,
+	"colNumStart": 1,
+	"lineNumEnd": 10,
+	"colNumEnd": 48,
+	"comment": "findOneByCardNumber;Student"
+},
+{
+	"fileName": "StudentRepository",
+	"content": "List<Student> findAllByLastName(String lastName);",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 11,
+	"colNumStart": 4,
+	"lineNumEnd": 11,
+	"colNumEnd": 53,
+	"comment": "findAllByLastName;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "@Service public class StudentService {",
+	"sectionType": "SERVICE",
+	"lineNumStart": 13,
+	"colNumStart": 0,
+	"lineNumEnd": 14,
+	"colNumEnd": 29,
+	"comment": "Service;StudentService;annotation"
+},
+{
+	"fileName": "StudentService",
+	"content": "@Autowired  StudentRepository studentRepository;",
+	"sectionType": "SERVICE",
+	"lineNumStart": 16,
+	"colNumStart": 1,
+	"lineNumEnd": 17,
+	"colNumEnd": 37,
+	"comment": "Autowired;StudentRepository;annotation"
+},
+{
+	"fileName": "StudentService",
+	"content": "public Student findOne(Long id) {   return studentRepository.findOne(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 19,
+	"colNumStart": 1,
+	"lineNumEnd": 21,
+	"colNumEnd": 2,
+	"comment": "findOne;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "public List<Student> findAll() {   return studentRepository.findAll();  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 23,
+	"colNumStart": 1,
+	"lineNumEnd": 25,
+	"colNumEnd": 2,
+	"comment": "findAll;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "public Page<Student> findAll(Pageable page) {   return studentRepository.findAll(page);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 27,
+	"colNumStart": 1,
+	"lineNumEnd": 29,
+	"colNumEnd": 2,
+	"comment": "findAll;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "public Student save(Student student) {   return studentRepository.save(student);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 31,
+	"colNumStart": 1,
+	"lineNumEnd": 33,
+	"colNumEnd": 2,
+	"comment": "save;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "public void remove(Long id) {   studentRepository.delete(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 35,
+	"colNumStart": 1,
+	"lineNumEnd": 37,
+	"colNumEnd": 2,
+	"comment": "remove;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "public Student findByCard(String cardNumber) {   return studentRepository.findOneByCardNumber(cardNumber);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 39,
+	"colNumStart": 1,
+	"lineNumEnd": 41,
+	"colNumEnd": 2,
+	"comment": "findByCard;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "public List<Student> findByLastName(String lastName) {   return studentRepository.findAllByLastName(lastName);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 43,
+	"colNumStart": 1,
+	"lineNumEnd": 45,
+	"colNumEnd": 2,
+	"comment": "findByLastName;Student"
+},
+{
+	"fileName": "StudentService",
+	"content": "public int calculateGrade(int points) {   if (points < 0 || points > 100)    throw new NumberFormatException();      return points < 55 ? 5 : Math.round(points/(float) 10);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 47,
+	"colNumStart": 1,
+	"lineNumEnd": 52,
+	"colNumEnd": 2,
+	"comment": "calculateGrade;Student"
+},
+{
+	"fileName": "Teacher",
+	"content": "@Entity public class Teacher {",
+	"sectionType": "MODEL",
+	"lineNumStart": 12,
+	"colNumStart": 0,
+	"lineNumEnd": 13,
+	"colNumEnd": 22,
+	"comment": "Entity;Teacher;annotation"
+},
+{
+	"fileName": "Teacher",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 14,
+	"colNumStart": 1,
+	"lineNumEnd": 16,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "Teacher",
+	"content": "@ManyToMany(mappedBy = \"teachers\")  private Set<Course> courses = new HashSet<Course>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 24,
+	"colNumStart": 1,
+	"lineNumEnd": 25,
+	"colNumEnd": 53,
+	"comment": "ManyToMany;Teacher-Course;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": "@RestController @RequestMapping(value=\"api/teachers\") public class TeacherController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 24,
+	"colNumStart": 0,
+	"lineNumEnd": 26,
+	"colNumEnd": 32,
+	"comment": "RestController;TeacherController;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": "@RequestMapping(value=\"api/teachers\") public class TeacherController {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 25,
+	"colNumStart": 0,
+	"lineNumEnd": 26,
+	"colNumEnd": 32,
+	"comment": "RequestMapping;TeacherController;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": "@Autowired  private TeacherService teacherService;",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 27,
+	"colNumStart": 1,
+	"lineNumEnd": 28,
+	"colNumEnd": 39,
+	"comment": "Autowired;TeacherService;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " @RequestMapping(value=\"/all\", method = RequestMethod.GET)  public ResponseEntity<List<TeacherDTO>> getAllTeachers() {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 30,
+	"colNumStart": 0,
+	"lineNumEnd": 31,
+	"colNumEnd": 59,
+	"comment": "RequestMapping;getAllTeachers;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " public ResponseEntity<List<TeacherDTO>> getAllTeachers() {   List<Teacher> teachers = teacherService.findAll();   //convert teachers to DTOs   List<TeacherDTO> teachersDTO = new ArrayList<>();   for (Teacher s : teachers) {    teachersDTO.add(new TeacherDTO(s));   }   return new ResponseEntity<>(teachersDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 31,
+	"colNumStart": 0,
+	"lineNumEnd": 39,
+	"colNumEnd": 2,
+	"comment": "getAllTeachers;Teacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": " @RequestMapping(method = RequestMethod.GET)  public ResponseEntity<List<TeacherDTO>> getTeachersPage(Pageable page) {",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 41,
+	"colNumStart": 0,
+	"lineNumEnd": 42,
+	"colNumEnd": 73,
+	"comment": "RequestMapping;getTeachersPage;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " public ResponseEntity<List<TeacherDTO>> getTeachersPage(Pageable page) {   Page<Teacher> teachers = teacherService.findAll(page);      //convert teachers to DTOs   List<TeacherDTO> teachersDTO = new ArrayList<>();   for (Teacher s : teachers) {    teachersDTO.add(new TeacherDTO(s));   }   return new ResponseEntity<>(teachersDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 42,
+	"colNumStart": 0,
+	"lineNumEnd": 51,
+	"colNumEnd": 2,
+	"comment": "getTeachersPage;Teacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": " @RequestMapping(value=\"/{id}\", method=RequestMethod.GET)  public ResponseEntity<TeacherDTO> getTeacher(@PathVariable Long id){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 53,
+	"colNumStart": 0,
+	"lineNumEnd": 54,
+	"colNumEnd": 69,
+	"comment": "RequestMapping;getTeacher;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " public ResponseEntity<TeacherDTO> getTeacher(@PathVariable Long id){   Teacher teacher = teacherService.findOne(id);   if(teacher == null){    return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }      return new ResponseEntity<>(new TeacherDTO(teacher), HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 54,
+	"colNumStart": 0,
+	"lineNumEnd": 61,
+	"colNumEnd": 2,
+	"comment": "getTeacher;Teacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": " @RequestMapping(method=RequestMethod.POST, consumes=\"application/json\")  public ResponseEntity<TeacherDTO> saveTeacher(@RequestBody TeacherDTO teacherDTO){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 63,
+	"colNumStart": 0,
+	"lineNumEnd": 64,
+	"colNumEnd": 83,
+	"comment": "RequestMapping;saveTeacher;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " public ResponseEntity<TeacherDTO> saveTeacher(@RequestBody TeacherDTO teacherDTO){   Teacher teacher = new Teacher();   teacher.setFirstName(teacherDTO.getFirstName());   teacher.setLastName(teacherDTO.getLastName());   teacher.setRank(teacherDTO.getRank());      teacher = teacherService.save(teacher);   return new ResponseEntity<>(new TeacherDTO(teacher), HttpStatus.CREATED);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 64,
+	"colNumStart": 0,
+	"lineNumEnd": 72,
+	"colNumEnd": 2,
+	"comment": "saveTeacher;Teacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": "  Teacher teacher = new Teacher();   teacher.setFirstName(teacherDTO.getFirstName());   teacher.setLastName(teacherDTO.getLastName());   teacher.setRank(teacherDTO.getRank());      teacher = teacherService.save(teacher);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 65,
+	"colNumStart": 0,
+	"lineNumEnd": 70,
+	"colNumEnd": 41,
+	"comment": "saveTeacher;Teacher;setTeacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": " @RequestMapping(method=RequestMethod.PUT, consumes=\"application/json\")  public ResponseEntity<TeacherDTO> updateTeacher(@RequestBody TeacherDTO teacherDTO){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 74,
+	"colNumStart": 0,
+	"lineNumEnd": 75,
+	"colNumEnd": 85,
+	"comment": "RequestMapping;updateTeacher;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " public ResponseEntity<TeacherDTO> updateTeacher(@RequestBody TeacherDTO teacherDTO){   //a teacher must exist   Teacher teacher = teacherService.findOne(teacherDTO.getId());    if (teacher == null) {    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   }      teacher.setRank(teacherDTO.getRank());   teacher.setFirstName(teacherDTO.getFirstName());   teacher.setLastName(teacherDTO.getLastName());      teacher = teacherService.save(teacher);   return new ResponseEntity<>(new TeacherDTO(teacher), HttpStatus.OK);   }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 75,
+	"colNumStart": 0,
+	"lineNumEnd": 88,
+	"colNumEnd": 2,
+	"comment": "updateTeacher;Teacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": "  teacher.setRank(teacherDTO.getRank());   teacher.setFirstName(teacherDTO.getFirstName());   teacher.setLastName(teacherDTO.getLastName());      teacher = teacherService.save(teacher);",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 82,
+	"colNumStart": 0,
+	"lineNumEnd": 86,
+	"colNumEnd": 41,
+	"comment": "updateTeacher;Teacher;setTeacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": " @RequestMapping(value=\"/{id}\", method=RequestMethod.DELETE)  public ResponseEntity<Void> deleteTeacher(@PathVariable Long id){",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 90,
+	"colNumStart": 0,
+	"lineNumEnd": 91,
+	"colNumEnd": 66,
+	"comment": "RequestMapping;deleteTeacher;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " public ResponseEntity<Void> deleteTeacher(@PathVariable Long id){   Teacher teacher = teacherService.findOne(id);   if (teacher != null){    teacherService.remove(id);    return new ResponseEntity<>(HttpStatus.OK);   } else {      return new ResponseEntity<>(HttpStatus.NOT_FOUND);   }  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 91,
+	"colNumStart": 0,
+	"lineNumEnd": 99,
+	"colNumEnd": 2,
+	"comment": "deleteTeacher;Teacher"
+},
+{
+	"fileName": "TeacherController",
+	"content": " @RequestMapping(value = \"/{teacherId}/courses\", method = RequestMethod.GET)  public ResponseEntity<List<CourseDTO>> getTeacherCourses(",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 101,
+	"colNumStart": 0,
+	"lineNumEnd": 102,
+	"colNumEnd": 58,
+	"comment": "RequestMapping;getTeacherCourses;annotation"
+},
+{
+	"fileName": "TeacherController",
+	"content": " public ResponseEntity<List<CourseDTO>> getTeacherCourses(    @PathVariable Long teacherId) {   Teacher teacher = teacherService.findOne(teacherId);   Set<Course> courses = teacher.getCourses();   List<CourseDTO> coursesDTO = new ArrayList<>();   for (Course c: courses) {    coursesDTO.add(new CourseDTO(c));   }   return new ResponseEntity<>(coursesDTO, HttpStatus.OK);  }",
+	"sectionType": "CONTROLLER",
+	"lineNumStart": 102,
+	"colNumStart": 0,
+	"lineNumEnd": 111,
+	"colNumEnd": 2,
+	"comment": "getTeacherCourses;Course"
+},
+{
+	"fileName": "TeacherRepository",
+	"content": "public interface TeacherRepository extends JpaRepository<Teacher, Long>{  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "save;Teacher"
+},
+{
+	"fileName": "TeacherRepository",
+	"content": "public interface TeacherRepository extends JpaRepository<Teacher, Long>{  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "delete;Teacher"
+},
+{
+	"fileName": "TeacherRepository",
+	"content": "public interface TeacherRepository extends JpaRepository<Teacher, Long>{  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findAll;Teacher"
+},
+{
+	"fileName": "TeacherRepository",
+	"content": "public interface TeacherRepository extends JpaRepository<Teacher, Long>{  }",
+	"sectionType": "REPOSITORY",
+	"lineNumStart": 7,
+	"colNumStart": 0,
+	"lineNumEnd": 9,
+	"colNumEnd": 1,
+	"comment": "findById;Teacher"
+},
+{
+	"fileName": "TeacherService",
+	"content": "@Service public class TeacherService {",
+	"sectionType": "SERVICE",
+	"lineNumStart": 13,
+	"colNumStart": 0,
+	"lineNumEnd": 14,
+	"colNumEnd": 29,
+	"comment": "Service;TeacherService;annotation"
+},
+{
+	"fileName": "TeacherService",
+	"content": "@Autowired  TeacherRepository teacherRepository;",
+	"sectionType": "SERVICE",
+	"lineNumStart": 15,
+	"colNumStart": 1,
+	"lineNumEnd": 16,
+	"colNumEnd": 37,
+	"comment": "Autowired;TeacherRepository;annotation"
+},
+{
+	"fileName": "TeacherService",
+	"content": "public Teacher findOne(Long id) {   return teacherRepository.findOne(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 18,
+	"colNumStart": 1,
+	"lineNumEnd": 20,
+	"colNumEnd": 2,
+	"comment": "findOne;Teacher"
+},
+{
+	"fileName": "TeacherService",
+	"content": "public List<Teacher> findAll() {   return teacherRepository.findAll();  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 22,
+	"colNumStart": 1,
+	"lineNumEnd": 24,
+	"colNumEnd": 2,
+	"comment": "findAll;Teacher"
+},
+{
+	"fileName": "TeacherService",
+	"content": "public Page<Teacher> findAll(Pageable page) {   return teacherRepository.findAll(page);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 26,
+	"colNumStart": 1,
+	"lineNumEnd": 28,
+	"colNumEnd": 2,
+	"comment": "findAll;Teacher"
+},
+{
+	"fileName": "TeacherService",
+	"content": "public Teacher save(Teacher teacher) {   return teacherRepository.save(teacher);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 30,
+	"colNumStart": 1,
+	"lineNumEnd": 32,
+	"colNumEnd": 2,
+	"comment": "save;Teacher"
+},
+{
+	"fileName": "TeacherService",
+	"content": "public void remove(Long id) {   teacherRepository.delete(id);  }",
+	"sectionType": "SERVICE",
+	"lineNumStart": 34,
+	"colNumStart": 1,
+	"lineNumEnd": 36,
+	"colNumEnd": 2,
+	"comment": "remove;Teacher"
+},
+{
+	"fileName": "User",
+	"content": "@Entity public class User {",
+	"sectionType": "MODEL",
+	"lineNumStart": 13,
+	"colNumStart": 0,
+	"lineNumEnd": 14,
+	"colNumEnd": 19,
+	"comment": "Entity;User;annotation"
+},
+{
+	"fileName": "User",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 15,
+	"colNumStart": 1,
+	"lineNumEnd": 17,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "User",
+	"content": "@OneToMany(mappedBy = \"user\", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)  private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();",
+	"sectionType": "MODEL",
+	"lineNumStart": 23,
+	"colNumStart": 1,
+	"lineNumEnd": 24,
+	"colNumEnd": 75,
+	"comment": "OneToMany;User-UserAuthority;annotation"
+},
+{
+	"fileName": "UserAuthority",
+	"content": "@Entity public class UserAuthority {",
+	"sectionType": "MODEL",
+	"lineNumStart": 15,
+	"colNumStart": 0,
+	"lineNumEnd": 16,
+	"colNumEnd": 28,
+	"comment": "Entity;UserAuthority;annotation"
+},
+{
+	"fileName": "UserAuthority",
+	"content": "@Id  @GeneratedValue  private Long id;",
+	"sectionType": "MODEL",
+	"lineNumStart": 17,
+	"colNumStart": 1,
+	"lineNumEnd": 19,
+	"colNumEnd": 17,
+	"comment": "Id;id;annotation"
+},
+{
+	"fileName": "UserAuthority",
+	"content": "@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  private User user;",
+	"sectionType": "MODEL",
+	"lineNumStart": 21,
+	"colNumStart": 1,
+	"lineNumEnd": 22,
+	"colNumEnd": 19,
+	"comment": "ManyToOne;UserAuthority-User;annotation"
+},
+{
+	"fileName": "UserAuthority",
+	"content": "@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  private Authority authority;",
+	"sectionType": "MODEL",
+	"lineNumStart": 24,
+	"colNumStart": 1,
+	"lineNumEnd": 25,
+	"colNumEnd": 29,
+	"comment": "ManyToOne;UserAuthority-Authority;annotation"
+}]
